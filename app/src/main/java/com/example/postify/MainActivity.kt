@@ -5,13 +5,15 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.postify.ui.screens.DetailScreen
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import com.example.postify.ui.theme.PostifyTheme
-import com.example.postify.utils.DataUtils
-import com.example.postify.viewmodels.ProductViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import androidx.compose.runtime.collectAsState
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.example.postify.ui.screens.CategoryScreen
+import com.example.postify.ui.screens.DetailScreen
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -27,8 +29,31 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun PostifyApp() {
     PostifyTheme {
-        val viewModel: ProductViewModel = viewModel()
-        val items = DataUtils.convertProductsToItems(viewModel.products.collectAsState().value)
-        DetailScreen(items)
+        val navController = rememberNavController()
+
+        NavHost(navController = navController, startDestination = "categoryScreen") {
+            composable(
+                route = "categoryScreen"
+            ){
+                CategoryScreen(onClick = {type, category ->
+                    navController.navigate("detailScreen/${type}/${category}")
+                })
+            }
+
+            composable(
+                route = "detailScreen/{type}/{category}",
+                arguments = listOf(
+                    navArgument("type"){
+                        type = NavType.StringType
+                    },
+                    navArgument("category"){
+                        type = NavType.StringType
+                    }
+                )
+            ) {
+                DetailScreen()
+            }
+        }
+
     }
 }

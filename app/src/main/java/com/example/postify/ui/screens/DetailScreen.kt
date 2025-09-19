@@ -16,17 +16,22 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.postify.models.Item
+import com.example.postify.viewmodels.PostViewModel
+import androidx.compose.runtime.collectAsState
 
 @Composable
-fun DetailScreen(items: List<Item>) {
+fun DetailScreen() {
+    val viewModel: PostViewModel = hiltViewModel()
+    val posts = viewModel.items.collectAsState().value
     LazyColumn(
         modifier = Modifier.padding(8.dp, 40.dp, 8.dp, 8.dp)
     ) {
-        items(items.size) {
-            Item(items[it])
+        items(posts.size) {
+            Item(posts[it])
         }
     }
 }
@@ -65,43 +70,5 @@ fun Item(item: Item) {
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun PreviewScreen() {
-    DetailScreen(
-        listOf(
-            Item(
-                imageUrl = "https://picsum.photos/seed/44/150/150",
-                title = "Item Title",
-                description = "This is the description for the current Item of the category."
-            ),
-            Item(
-                imageUrl = "https://picsum.photos/seed/44/400/300",
-                title = "Item Title",
-                description = "This is the description for the current Item of the category."
-            ),
-            Item(
-                imageUrl = "https://picsum.photos/seed/44/400/300",
-                title = "Item Title",
-                description = "This is the description for the current Item of the category."
-            ),
-            Item(
-                imageUrl = "https://picsum.photos/seed/44/400/300",
-                title = "Item Title",
-                description = "This is the description for the current Item of the category."
-            ),
-            Item(
-                imageUrl = "https://picsum.photos/seed/44/400/300",
-                title = "Item Title",
-                description = "This is the description for the current Item of the category."
-            ),
-            Item(
-                imageUrl = "https://picsum.photos/seed/44/400/300",
-                title = "Item Title",
-                description = "This is the description for the current Item of the category."
-            ),
-            Item(
-                imageUrl = "https://picsum.photos/seed/44/400/300",
-                title = "Item Title",
-                description = "This is the description for the current Item of the category."
-            )
-        )
-    )
+
 }

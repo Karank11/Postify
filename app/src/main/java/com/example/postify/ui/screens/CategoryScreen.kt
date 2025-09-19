@@ -2,11 +2,13 @@ package com.example.postify.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
@@ -26,18 +28,15 @@ import com.example.postify.models.Category
 import com.example.postify.repository.CategoryRepository
 
 @Composable
-fun CategoryScreen(modifier: Modifier = Modifier) {
-    Column(modifier = modifier
-        .padding(8.dp, 40.dp, 8.dp, 8.dp)
-    ) {
-        ProductCategorySection()
-        PostCategorySection()
+fun CategoryScreen(onClick: (type: String, category: String) -> Unit) {
+    Column(modifier = Modifier.padding(8.dp, 40.dp, 8.dp, 8.dp)) {
+        ProductCategorySection(onClick = onClick)
+        PostCategorySection(onClick = onClick)
     }
 }
 
-
 @Composable
-fun ProductCategorySection() {
+fun ProductCategorySection(onClick: (type: String, category: String) -> Unit) {
     Column {
         Text(
             text = "Product Category",
@@ -53,7 +52,9 @@ fun ProductCategorySection() {
                 .height(260.dp)
         ) {
             items(CategoryRepository.productCategories.size) { index->
-                CategoryItem(CategoryRepository.productCategories[index])
+                CategoryItem(CategoryRepository.productCategories[index]){
+                    onClick("products", it)
+                }
             }
         }
         Spacer(
@@ -63,7 +64,7 @@ fun ProductCategorySection() {
 }
 
 @Composable
-fun PostCategorySection() {
+fun PostCategorySection(onClick: (type:String, category: String) -> Unit) {
     Column {
         Text(
             text = "Posts Category",
@@ -78,7 +79,9 @@ fun PostCategorySection() {
             modifier = Modifier
         ) {
             items(CategoryRepository.postCategories.size) { index->
-                CategoryItem(CategoryRepository.postCategories[index])
+                CategoryItem(CategoryRepository.postCategories[index]){
+                    onClick("posts", it)
+                }
             }
         }
     }
@@ -86,12 +89,14 @@ fun PostCategorySection() {
 
 
 @Composable
-fun CategoryItem(category: Category) {
+fun CategoryItem(category: Category, onClick:(category: String)->Unit) {
     Column(
         modifier = Modifier
             .padding(4.dp)
-            .width(110.dp)
-            .height(120.dp)
+            .clickable {
+                onClick(category.title)
+            }
+            .size(120.dp)
             .border(0.1.dp, Color.Black, RoundedCornerShape(8.dp))
     ) {
         Image(
@@ -118,5 +123,5 @@ fun CategoryItem(category: Category) {
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun PreviewCategoryScreen() {
-    CategoryScreen()
+
 }
