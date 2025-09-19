@@ -5,9 +5,13 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
-import com.example.postify.ui.screens.CategoryScreen
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.postify.ui.screens.DetailScreen
 import com.example.postify.ui.theme.PostifyTheme
+import com.example.postify.utils.DataUtils
+import com.example.postify.viewmodels.ProductViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import androidx.compose.runtime.collectAsState
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -23,6 +27,8 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun PostifyApp() {
     PostifyTheme {
-        CategoryScreen()
+        val viewModel: ProductViewModel = viewModel()
+        val items = DataUtils.convertProductsToItems(viewModel.products.collectAsState().value)
+        DetailScreen(items)
     }
 }

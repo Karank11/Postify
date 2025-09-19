@@ -9,15 +9,15 @@ import javax.inject.Inject
 
 class PostifyRepository @Inject constructor(val postifyApiService: PostifyApiService) {
 
-    suspend fun getProductsForCategory(category: String): List<Product> {
+    suspend fun getProductsForCategory(jsonPath: String): List<Product> {
         return withContext(Dispatchers.IO) {
-            postifyApiService.getProductsWithCategory(category)
+            postifyApiService.getProductsWithCategory(jsonPath)
         }
     }
 
-    suspend fun getPostsForCategory(category: String): List<Post> {
+    suspend fun getPostsForCategory(jsonPath: String): List<Post> {
         return withContext(Dispatchers.IO) {
-            postifyApiService.getPostsWithCategory(category)
+            postifyApiService.getPostsWithCategory(jsonPath)
         }
     }
 }

@@ -3,7 +3,6 @@ package com.example.postify.ui.screens
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -23,7 +22,9 @@ import com.example.postify.models.Item
 
 @Composable
 fun DetailScreen(items: List<Item>) {
-    LazyColumn {
+    LazyColumn(
+        modifier = Modifier.padding(8.dp, 40.dp, 8.dp, 8.dp)
+    ) {
         items(items.size) {
             Item(items[it])
         }
@@ -49,20 +50,19 @@ fun Item(item: Item) {
             Column {
                 Text(
                     text = item.title,
-                    style = MaterialTheme.typography.headlineMedium,
+                    style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier.padding(0.dp, 8.dp)
                 )
                 Text(
                     text = item.description,
-                    style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier.fillMaxHeight(1f)
+                    style = MaterialTheme.typography.bodySmall,
                 )
             }
         }
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun PreviewScreen() {
     DetailScreen(
