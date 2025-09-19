@@ -23,7 +23,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.postify.models.Category
-import com.example.postify.utils.DataUtils
+import com.example.postify.repository.CategoryRepository
 
 @Composable
 fun CategoryScreen(modifier: Modifier = Modifier) {
@@ -52,8 +52,8 @@ fun ProductCategorySection() {
             modifier = Modifier
                 .height(260.dp)
         ) {
-            items(DataUtils.productCategories.size) { index->
-                CategoryItem(DataUtils.productCategories[index])
+            items(CategoryRepository.productCategories.size) { index->
+                CategoryItem(CategoryRepository.productCategories[index])
             }
         }
         Spacer(
@@ -77,8 +77,8 @@ fun PostCategorySection() {
             columns = GridCells.Fixed(3),
             modifier = Modifier
         ) {
-            items(DataUtils.postCategories.size) { index->
-                CategoryItem(DataUtils.postCategories[index])
+            items(CategoryRepository.postCategories.size) { index->
+                CategoryItem(CategoryRepository.postCategories[index])
             }
         }
     }
