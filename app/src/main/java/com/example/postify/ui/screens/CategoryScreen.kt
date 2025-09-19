@@ -28,8 +28,8 @@ import com.example.postify.models.Category
 import com.example.postify.repository.CategoryRepository
 
 @Composable
-fun CategoryScreen(onClick: (type: String, category: String) -> Unit) {
-    Column(modifier = Modifier.padding(8.dp, 40.dp, 8.dp, 8.dp)) {
+fun CategoryScreen(modifier: Modifier = Modifier, onClick: (type: String, category: String) -> Unit) {
+    Column(modifier = modifier) {
         ProductCategorySection(onClick = onClick)
         PostCategorySection(onClick = onClick)
     }

@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CardElevation
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,12 +26,10 @@ import com.example.postify.viewmodels.PostViewModel
 import androidx.compose.runtime.collectAsState
 
 @Composable
-fun DetailScreen() {
+fun DetailScreen(modifier: Modifier = Modifier) {
     val viewModel: PostViewModel = hiltViewModel()
     val posts = viewModel.items.collectAsState().value
-    LazyColumn(
-        modifier = Modifier.padding(8.dp, 40.dp, 8.dp, 8.dp)
-    ) {
+    LazyColumn(modifier = modifier) {
         items(posts.size) {
             Item(posts[it])
         }
@@ -38,7 +38,10 @@ fun DetailScreen() {
 
 @Composable
 fun Item(item: Item) {
-    Card(modifier = Modifier.padding(8.dp)) {
+    Card(
+        elevation = CardDefaults.cardElevation(8.dp),
+        modifier = Modifier.padding(8.dp)
+    ) {
         Row(modifier = Modifier.height(150.dp)) {
             AsyncImage(
                 model = ImageRequest.Builder(LocalContext.current)
