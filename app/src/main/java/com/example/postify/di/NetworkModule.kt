@@ -1,7 +1,7 @@
 package com.example.postify.di
 
 import com.example.postify.BuildConfig
-import com.example.postify.network.PostifyApiService
+import com.example.postify.api.PostifyApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

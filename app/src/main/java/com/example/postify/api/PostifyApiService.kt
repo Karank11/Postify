@@ -1,4 +1,4 @@
-package com.example.postify.network
+package com.example.postify.api
 
 import com.example.postify.models.Post
 import com.example.postify.models.Product
