@@ -1,6 +1,11 @@
+
 # Postify
 
 Postify is an Android application that demonstrates a modern approach to Android development. It showcases a list of posts, each with an image, title, and description, in a scrollable view. The app also includes functionality to browse posts by category.
+
+<div align="center">
+  <img width="200" height="200" alt="postify_icon" src="https://github.com/user-attachments/assets/96cf0c9d-9495-4db2-ac9e-39988697fbbe" />
+</div>
 
 ## Features
 
